@@ -157,3 +157,19 @@
 - **Spec-Abdeckung:** Connector/Sprache → Task 7; Spiegelung/Intervall/launchd → Task 6; Zugänge/Produktionsstatus → Task 3; Sicherung, Erstabgleich, Testkalender-Vorsicht → Tasks 4–5; strikt einseitig + Verifikation → Task 2 und 6.3; Fehlersignal → Task 6; Serientermine/Ganztägig → Tests in Task 2.
 - **Offene Punkte des Spec:** Strikte Einseitigkeit wird in Task 2 durch Tests entschieden, Fallback beschrieben. Connector-Änderungstool wird in Task 7 geprüft.
 - **Abweichung vom Spec:** Statt eines Testkalenders in Strato (wäre ein neuer Kalender) testet Task 2 mit lokalen Dateispeichern; echte Kalender werden erst nach Sicherung und OK angefasst.
+
+---
+
+## Abweichungen bei der Umsetzung (2026-11-22)
+
+- Task 2: `partial_sync = "ignore"` statt `revert`; Strato-eigene Änderungen werden nicht
+  zurückgesetzt.
+- Task 3/6: Zertifikatsliste (`ca-bundle.pem`, `SSL_CERT_FILE`) war nötig; für Google
+  zusätzlich die CalDAV API.
+- Task 4/5: Strato-CalDAV erst nach Upgrade auf Business nutzbar.
+- Task 6: zusätzlich `scripts/prune_deleted.py` und der Modus `gcopy` in `build_config`
+  (Löschungen aus Google an Strato weitergeben); stille Behandlung von Offline-Läufen.
+- Task 7: Der Connector bietet `update_event`; die Anweisung in
+  `docs/claude-instructions.md` nutzt es direkt.
+
+Details: Abschnitt „Umsetzungsstand" im Entwurf und `README.md`.

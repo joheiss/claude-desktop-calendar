@@ -91,3 +91,32 @@ nie eine Quelle.
 ## Von mir gesetzt (zum Gegenlesen)
 - Offizieller Connector statt eigenem Google-MCP-Server.
 - 15-Minuten-Takt über `launchd`, nicht über Cron.
+
+## Umsetzungsstand (2026-11-22)
+
+Die offenen Punkte oben sind geklärt. Abweichungen und Ergänzungen zum Entwurf:
+
+- **Strikt einseitig:** `vdirsyncer` mit `read_only = true` auf der Google-Seite und
+  `partial_sync = "ignore"` verhindert jeden Schreibzugriff nach Google (per Test belegt).
+  Strato-eigene Termine/Änderungen bleiben in Strato stehen, bis Google den Termin ändert;
+  sie werden nicht zurückgesetzt. (`revert` hätte wegen Stratos Umschreiben der Termine
+  jeden Lauf alle Termine neu hochgeladen.)
+- **Löschungen:** Strato (Open-Xchange) schreibt Termine beim Speichern um, deshalb hält
+  `vdirsyncer` sie für „in Strato geändert" und gibt Google-Löschungen nicht weiter.
+  Ergänzt wurde `scripts/prune_deleted.py` mit lokaler Google-Kopie als Referenz und
+  Sicherungen (max. 10 Löschungen pro Lauf, leere Kopie bricht ab).
+- **Zertifikate:** Das Python in `vdirsyncer` findet keinen CA-Store. Eine Zertifikatsliste
+  aus dem macOS-System liegt unter `~/.config/vdirsyncer/ca-bundle.pem` (`SSL_CERT_FILE`).
+- **Google-Zugang:** Zusätzlich zur Calendar API muss die **CalDAV API** aktiviert sein.
+  Für „In Produktion" verlangt Google Startseite und Datenschutzerklärung (`index.html`,
+  `datenschutz.html`).
+- **Strato:** CalDAV erfordert ein Business-Postfach. Terminkalender ist die Sammlung mit
+  `VEVENT` (die zweite Sammlung ist eine Aufgabenliste).
+- **Versionszähler:** Bei 16 Terminen aus Strato wurde in Google der `SEQUENCE`-Zähler
+  erhöht, damit Strato Aktualisierungen annimmt.
+- **Fehlermeldungen:** Ohne Netz wird still übersprungen, erst nach 24 h ohne Erfolg
+  gibt es eine Mitteilung.
+- **Erstlauf:** Statt eines Testkalenders in Strato (wäre ein neuer Kalender gewesen)
+  gab es lokale Tests und eine Sicherung beider Kalender vor dem Erstabgleich.
+
+Bedienung, Einrichtung und Fehlersuche: `README.md`.
