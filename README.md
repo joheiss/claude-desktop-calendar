@@ -98,6 +98,7 @@ Alles Geheime liegt in der macOS-Keychain bzw. unter `~/.config/vdirsyncer/`, ni
    ```
    Wird das Projekt verschoben oder umbenannt: Job neu installieren
    (`launchctl bootout gui/$(id -u)/de.joheiss.calendar-mirror`, dann Schritt 9).
+   Umzug des Spiegels auf einen anderen Mac: `docs/umzug-spiegel.md`.
 
 ## Claude Desktop
 
