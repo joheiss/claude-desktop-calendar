@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key><string>de.joheiss.calendar-mirror</string>
+  <key>ProgramArguments</key>
+  <array><string>/bin/zsh</string><string>{{MIRROR_SH}}</string></array>
+  <key>StartInterval</key><integer>900</integer>
+  <key>RunAtLoad</key><true/>
+  <key>StandardOutPath</key><string>{{HOME}}/Library/Logs/calendar-mirror-launchd.log</string>
+  <key>StandardErrorPath</key><string>{{HOME}}/Library/Logs/calendar-mirror-launchd.log</string>
+</dict>
+</plist>

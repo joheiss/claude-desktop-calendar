@@ -9,4 +9,5 @@ client_secret.fetch = ["command", "security", "find-generic-password", "-s", "vd
 type = "caldav"
 url = "{{STRATO_URL}}"
 username = "{{STRATO_USER}}"
+verify = "{{CA_BUNDLE}}"
 password.fetch = ["command", "security", "find-generic-password", "-s", "vdirsyncer-strato-password", "-w"]
